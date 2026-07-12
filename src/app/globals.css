@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #2a241c;
+  --color-accent: #c2571f;
+  --color-acc2: #8a63d2;
+  --color-acc3: #1f8a7c;
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-syne);
+  --breakpoint-xs: 30rem;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #2a241c;
+  --muted: #6f6557;
+  --accent: #c2571f;
+  --acc2: #8a63d2;
+  --acc3: #1f8a7c;
+  --card: #fffdf8;
+  --line: rgba(42, 36, 28, 0.12);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  transition: background-color 0.3s linear;
+}
+
+::selection {
+  background: rgba(138, 99, 210, 0.25);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f3ecdd;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(42, 36, 28, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(194, 87, 31, 0.5);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: auto;
+  }
+  a,
+  button,
+  input,
+  textarea,
+  [data-cursor="pointer"] {
+    cursor: auto;
+  }
+}
+
+.font-display {
+  font-family: var(--font-syne), system-ui, sans-serif;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* tri-accent gradient text (matches Sunlit Workspace) */
+.grad-text {
+  background: linear-gradient(110deg, #2a241c 20%, var(--accent) 60%, var(--acc2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---- animated-preview motion (orbits / float / dash) ---- */
+@keyframes kg-spin { to { transform: rotate(360deg); } }
+@keyframes kg-spinrev { to { transform: rotate(-360deg); } }
+@keyframes kg-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes kg-dash { to { stroke-dashoffset: -220; } }
+.kg-spin-slow { animation: kg-spin 40s linear infinite; transform-origin: center; }
+.kg-spin-mid { animation: kg-spinrev 24s linear infinite; transform-origin: center; }
+.kg-spin-fast { animation: kg-spin 12s linear infinite; transform-origin: center; }
+.kg-float { animation: kg-float 6s ease-in-out infinite; }
+.kg-dash { stroke-dasharray: 8 10; animation: kg-dash 4s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .kg-spin-slow, .kg-spin-mid, .kg-spin-fast, .kg-float, .kg-dash { animation: none; }
+}
+
+/* ---- bespoke project-preview animations ---- */
+@keyframes kg-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes kg-type { from { width: 0; } to { width: 100%; } }
+@keyframes kg-pop { 0% { transform: scale(0); opacity: 0; } 60% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes kg-draw { to { stroke-dashoffset: 0; } }
+@keyframes kg-bar { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
+@keyframes kg-slide { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+@keyframes kg-scan { 0% { transform: translateY(0); } 100% { transform: translateY(118px); } }
+@keyframes kg-cyc {
+  0% { opacity: 0; transform: translateY(3px); }
+  5%, 28% { opacity: 1; transform: none; }
+  33%, 100% { opacity: 0; transform: translateY(-3px); }
+}
+@keyframes kg-dots { 0%, 80%, 100% { transform: scale(0.5); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  [class*="kg-anim"] { animation: none !important; }
+}
+@keyframes kg-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }

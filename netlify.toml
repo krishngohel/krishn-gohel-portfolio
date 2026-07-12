@@ -1,0 +1,12 @@
+# Netlify configuration — Krishn Gohel portfolio (Next.js 16, App Router)
+[build]
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NPM_FLAGS = "--no-audit --no-fund"
+
+# The official Next.js Runtime. Netlify auto-installs this when declared here;
+# it wires up SSR, the /api/contact route, image handling, and routing.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

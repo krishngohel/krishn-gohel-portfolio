@@ -1,5 +1,5 @@
 import { Hero } from "@/components/home/hero";
-import { ScrollWorld3D } from "@/components/home/scroll-world-3d";
+import { Showreel } from "@/components/home/showreel";
 import { FeaturedProjects } from "@/components/home/featured-projects";
 import { ServicesPreview } from "@/components/home/services-preview";
 import { ProcessPreview } from "@/components/home/process-preview";
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ScrollWorld3D />
+      <Showreel />
       <FeaturedProjects />
       <ServicesPreview />
       <ProcessPreview />

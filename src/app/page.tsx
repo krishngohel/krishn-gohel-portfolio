@@ -32,7 +32,7 @@ export default function Home() {
             <p className="fn">I build the whole system, from schema to deploy, and keep it running after launch.</p>
             <p className="lede">
               My current work is for real users and real clients: a relationship CRM on iOS, Android
-              and the web, a lead-routing CRM for an insurance agency, and a recruiting platform for a staffing firm.
+              and the web, a call-queue CRM for a life-insurance agency, and a recruiting platform for a staffing firm.
               Since 2023 I&apos;ve run Webloom, a one-person consultancy, and delivered 50+ client projects through it.
             </p>
             <p className="contact-line">

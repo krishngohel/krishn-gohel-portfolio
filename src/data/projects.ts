@@ -45,23 +45,24 @@ export const currentProjects: CurrentProject[] = [
     ],
   },
   {
-    id: "ringlist",
-    name: "Ringlist",
-    function: "Lead-routing CRM for an insurance agency",
+    id: "lead-desk",
+    name: "Lead Desk",
+    function: "Call-queue CRM for a life-insurance agency",
     period: "Nov 2026, demo",
     body: [
-      "An insurance agency runs Facebook and Instagram lead ads. My partner runs the campaigns; I build everything that happens after someone fills out the form. The form sits on the landing page under the video, so there's no second page to drop off on.",
-      "Each submission lands in the CRM, which picks an agent, alerts them, and tracks the call. If the lead picks up, the agent quotes them. If not, the CRM sets a reminder and the agent tries again. It starts with one agent and grows to five or more.",
+      "A life-insurance agency runs Facebook and Instagram lead ads. My partner runs the campaigns; I build everything that happens after someone fills out the form. The form sits on the landing page under the video, so there's no second page to drop off on.",
+      "Every new lead lands on a call board with a live clock against a five-minute target, hot leads first. The CRM routes it to the licensed agent on shift with the fewest open leads. No answer sets a timed retry; a pickup moves to a quote, a booked follow-up, or a sale. A STOP blocks the number, and each lead's consent wording, timestamp and phone number are saved with the record.",
     ],
     characteristics: [
       { parameter: "Lead source", value: "Meta and Instagram lead ads into an on-page landing form" },
-      { parameter: "Routing", value: "Assigns each lead to an agent and alerts them on arrival" },
-      { parameter: "Follow-up", value: "No answer sets a reminder for the agent to call back" },
-      { parameter: "Scale", value: "One agent at launch, scaling to five or more" },
+      { parameter: "Routing", value: "Licensed agent on shift with the fewest open leads, or first come, first served" },
+      { parameter: "Call flow", value: "No answer sets a timed retry; pickup goes to quote, follow-up, or sold" },
+      { parameter: "Views", value: "Call board, pipeline, calendar, ads cost per lead and sale, team" },
+      { parameter: "Compliance", value: "STOP blocks the number; consent record kept per lead" },
       { parameter: "Engagement", value: "Freelance, paired with an ads partner" },
     ],
     links: [
-      { label: "Live demo", href: "https://ringlist-crm-demo.netlify.app" },
+      { label: "Live demo", href: "https://claude.ai/artifact/EXik9bnYdR2CgxyorE4SJh" },
       { label: "Repo private" },
     ],
   },
@@ -153,7 +154,7 @@ export interface Revision {
 }
 
 export const revisions: Revision[] = [
-  { date: "Nov 2026", entry: "Built the Ringlist lead-routing CRM demo for an insurance agency." },
+  { date: "Nov 2026", entry: "Built the Lead Desk call-queue CRM demo for a life-insurance agency." },
   { date: "Sep 2026", entry: "Took on the Gratiture Solutions recruiting platform: scoping, delivery plan, build." },
   { date: "Aug 2026", entry: "Started the Necto v2 rebuild on the live production database." },
   { date: "May 2026", entry: "B.S. Computer Science, Data Science concentration, UTSA." },

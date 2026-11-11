@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Krishn Gohel, software engineer",
     description:
-      "Necto, Ringlist, the Gratiture recruiting platform, and earlier work. Schema to deploy, and still running after launch.",
+      "Necto, Lead Desk, the Gratiture recruiting platform, and earlier work. Schema to deploy, and still running after launch.",
     type: "website",
   },
 };

@@ -11,7 +11,7 @@ experience is the revision history.
 
 ## Editing content
 Everything on the page renders from `src/data/projects.ts`:
-- `currentProjects` — the detailed entries (Necto, Ringlist, Gratiture)
+- `currentProjects` — the detailed entries (Necto, Lead Desk, Gratiture)
 - `earlierProjects` — the selection-guide table; set `repo` and/or `live` to show links
 - `revisions` — the revision-history table
 

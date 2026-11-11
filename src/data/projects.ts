@@ -19,6 +19,15 @@ export interface CurrentProject {
   body: string[];
   characteristics: Characteristic[];
   links: ProjectLink[];
+  gallery?: Shot[];
+}
+
+export interface Shot {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
 }
 
 export const currentProjects: CurrentProject[] = [
@@ -68,20 +77,60 @@ export const currentProjects: CurrentProject[] = [
   },
   {
     id: "gratiture",
-    name: "Gratiture recruiting platform",
-    function: "Recruiting and staffing operations platform for Gratiture Solutions",
-    period: "2026, in progress",
+    name: "Gratiture Staffing CRM",
+    function: "Recruiting CRM for the Gratiture Solutions staffing team",
+    period: "2026, in production",
     body: [
-      "Gratiture Solutions is a staffing firm. They handed me an eleven-module requirements document covering job descriptions, a candidate database, AI resume fitment, applicant tracking, timesheets and payroll, a CRM, email outreach, compliance and onboarding, and executive dashboards, and asked for all of it in a month.",
-      "I told them the full scope was closer to six months, flagged the gaps in the spec, and laid out a phased plan that ships the four core modules first. Modules release one at a time so the recruiting team uses each piece as it lands instead of waiting for a big reveal.",
+      "Vendor job alerts reach Gratiture by email. The CRM reads the watched Gmail mailboxes, turns each vendor email into a clean posting, and keeps requirements, candidates and submissions in one place, with recruiter, lead and admin roles enforced in Postgres row-level security.",
+      "Every candidate is scored 0 to 100 against every open role by rules in code, not AI: skills 50, role 15, experience 15, location 10, eligibility 10, each with its full breakdown and nothing counted as a match until a person approves it. AI runs only when a recruiter asks, on their own subscription, inside a per-user sandbox on a separate runner. The resume formatter checks every output line against the original and flags anything it can't find before download.",
     ],
     characteristics: [
-      { parameter: "Scope", value: "11 modules across 5 phases" },
-      { parameter: "First release", value: "Phase 1: four core modules, staggered" },
-      { parameter: "Estimate", value: "About six months for full scope, against a one-month ask" },
-      { parameter: "Role", value: "Scoping, delivery plan, build" },
+      { parameter: "Web", value: "Next.js 16, React 19, TypeScript, server actions" },
+      { parameter: "Data", value: "Supabase Postgres 17 with RLS, Auth, Storage, Realtime" },
+      { parameter: "Runner", value: "Docker job worker, per-user AI sandboxes, Gmail poller, OCR" },
+      { parameter: "Matching", value: "Deterministic 0 to 100 score, human approval required" },
+      { parameter: "Bulk", value: "Screens up to 300 resumes against one requirement" },
+      { parameter: "Tests", value: "133 Vitest files, 20 pgTAP files, 7 Playwright specs" },
+      { parameter: "Status", value: "v0.7.0, in production with the Gratiture recruiting team" },
     ],
-    links: [{ label: "Client work, not public" }],
+    links: [{ label: "Client work: app and repo private, screenshots below use test data" }],
+    gallery: [
+      {
+        src: "/gratiture/pipeline.jpg",
+        alt: "Pipeline page with open requirements, submissions against target, blockers, a hygiene list and daily targets per recruiter.",
+        caption: "Pipeline: submission targets, blockers, and a hygiene list of gaps for leads.",
+        width: 1600,
+        height: 1000,
+      },
+      {
+        src: "/gratiture/match-score.jpg",
+        alt: "Match score card showing 100 of 100 with each part of the score broken down and the resume line that matched each skill.",
+        caption: "Match score: every point traced to a line in the resume.",
+        width: 1600,
+        height: 1000,
+      },
+      {
+        src: "/gratiture/resume-check.jpg",
+        alt: "Formatted resume review with a warning that one line is not in the original resume.",
+        caption: "Resume formatter: a line not in the original is flagged before download.",
+        width: 1600,
+        height: 1000,
+      },
+      {
+        src: "/gratiture/jd-generator.jpg",
+        alt: "JD generator draft built from a pasted job email and hiring-manager call notes.",
+        caption: "JD generator: mixed sources in, one standard posting out.",
+        width: 1600,
+        height: 1000,
+      },
+      {
+        src: "/gratiture/job-inbox.jpg",
+        alt: "Job Inbox listing vendor job alert emails waiting to be processed.",
+        caption: "Job Inbox: vendor alerts captured from the watched mailboxes.",
+        width: 1600,
+        height: 622,
+      },
+    ],
   },
 ];
 
@@ -155,7 +204,7 @@ export interface Revision {
 
 export const revisions: Revision[] = [
   { date: "Nov 2026", entry: "Built the Lead Desk call-queue CRM demo for a life-insurance agency." },
-  { date: "Sep 2026", entry: "Took on the Gratiture Solutions recruiting platform: scoping, delivery plan, build." },
+  { date: "Sep 2026", entry: "Started the Gratiture Staffing CRM, now in production with their recruiting team." },
   { date: "Aug 2026", entry: "Started the Necto v2 rebuild on the live production database." },
   { date: "May 2026", entry: "B.S. Computer Science, Data Science concentration, UTSA." },
   { date: "2023", entry: "Founded Webloom. Sole developer on 50+ client projects since." },

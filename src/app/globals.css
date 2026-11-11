@@ -330,6 +330,39 @@ a:focus-visible {
   color: var(--ink-2);
 }
 
+/* ---------- screenshot plate (Gratiture) ---------- */
+
+.gallery {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--s-5);
+}
+.gallery figure {
+  grid-column: span 2;
+}
+.gallery figure:nth-child(-n + 2) {
+  grid-column: span 3;
+}
+.gallery a {
+  display: block;
+  border: 1px solid var(--rule);
+  background: var(--tint);
+}
+.gallery a:hover {
+  border-color: var(--rule-strong);
+}
+.gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.gallery figcaption {
+  margin-top: var(--s-2);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+
 /* ---------- selection guide ---------- */
 
 .guide-wrap {
@@ -481,6 +514,13 @@ a:focus-visible {
   }
   .mast {
     padding-top: var(--s-7);
+  }
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+  .gallery figure,
+  .gallery figure:nth-child(-n + 2) {
+    grid-column: auto;
   }
 
   /* selection guide collapses to stacked records */

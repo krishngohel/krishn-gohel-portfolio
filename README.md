@@ -10,11 +10,14 @@ an index of every project with cursor-following previews, and a full-screen view
 
 ## Editing content
 Everything renders from `src/data/projects.ts`. Each project has:
-- `plain`: one or two plain-English sentences on what it does and who it helps
+- `plain`, `plainLine`, `plainBody`: the Plain-mode summary, index line and details
+- `line`, `body`, `specs`: the Technical-mode summary, details and spec table
 - `numbers`: three real figures, shown on hover and at the top of the project viewer
-- `body` and `specs`: how it works and what it's built with
 - `shots`: screenshots in `public/work` or `public/gratiture`, each with a `-sm` copy for previews
 - `live`, `repo`, `note`: links and any caveat (private repo, demo data)
+
+The top bar has a Plain / Technical switch and a light / dark switch; both are remembered
+in the browser (theme defaults to the visitor's system setting, detail level to Plain).
 
 Projects open in a full-screen viewer at `/#<id>` (for example `/#necto`); arrow keys step between
 projects and Esc closes.

@@ -20,12 +20,23 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0d0e10",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0d0e10" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f3ef" },
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" data-mode="plain" suppressHydrationWarning>
+      <head>
+        <script
+          // Apply the saved theme and detail level before first paint.
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var d=document.documentElement;try{var t=localStorage.getItem("kg-theme");var m=localStorage.getItem("kg-mode");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}d.dataset.theme=t;if(m==="tech"||m==="plain")d.dataset.mode=m}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

@@ -5,6 +5,38 @@ import { kinds, profile, projects, type Kind, type Project } from "@/data/projec
 
 const sm = (src: string) => src.replace(/\.jpg$/, "-sm.jpg");
 
+type Mode = "plain" | "tech";
+type Theme = "dark" | "light";
+
+function save(key: string, value: string) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    /* storage unavailable: the choice just won't persist */
+  }
+}
+
+function useSettings() {
+  const [mode, setModeState] = useState<Mode>("plain");
+  const [theme, setThemeState] = useState<Theme>("dark");
+  useEffect(() => {
+    const d = document.documentElement.dataset;
+    if (d.mode === "tech" || d.mode === "plain") setModeState(d.mode);
+    if (d.theme === "light" || d.theme === "dark") setThemeState(d.theme);
+  }, []);
+  const setMode = (m: Mode) => {
+    setModeState(m);
+    document.documentElement.dataset.mode = m;
+    save("kg-mode", m);
+  };
+  const setTheme = (t: Theme) => {
+    setThemeState(t);
+    document.documentElement.dataset.theme = t;
+    save("kg-theme", t);
+  };
+  return { mode, setMode, theme, setTheme };
+}
+
 /* ------------------------------------------------------------------ */
 /* Hover preview that trails the cursor                                */
 /* ------------------------------------------------------------------ */
@@ -76,11 +108,15 @@ function Viewer({
   onClose,
   onStep,
   position,
+  mode,
+  setMode,
 }: {
   project: Project;
   onClose: () => void;
   onStep: (d: number) => void;
   position: string;
+  mode: Mode;
+  setMode: (m: Mode) => void;
 }) {
   const [shot, setShot] = useState(0);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -113,6 +149,14 @@ function Viewer({
       <header className="viewer-bar">
         <span className="viewer-kind">{project.kind}</span>
         <span className="viewer-pos">{position}</span>
+        <div className="switch" role="group" aria-label="How much detail">
+          <button type="button" aria-pressed={mode === "plain"} onClick={() => setMode("plain")}>
+            Plain
+          </button>
+          <button type="button" aria-pressed={mode === "tech"} onClick={() => setMode("tech")}>
+            Technical
+          </button>
+        </div>
         <div className="viewer-nav">
           <button type="button" onClick={() => onStep(-1)}>
             Previous
@@ -161,7 +205,7 @@ function Viewer({
 
         <section className="viewer-text">
           <h2 id="viewer-title">{project.name}</h2>
-          <p className="viewer-plain">{project.plain}</p>
+          <p className="viewer-plain">{mode === "plain" ? project.plain : project.line}</p>
           <dl className="nums">
             {project.numbers.map((n) => (
               <div key={n.label}>
@@ -170,23 +214,38 @@ function Viewer({
               </div>
             ))}
           </dl>
-          <h3>How it works</h3>
-          <div className="viewer-copy">
-            {project.body.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-          <h3>Under the hood</h3>
-          <table className="specs">
-            <tbody>
-              {project.specs.map((sp) => (
-                <tr key={sp.k}>
-                  <th scope="row">{sp.k}</th>
-                  <td>{sp.v}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {mode === "plain" ? (
+            <>
+              <h3>What it does</h3>
+              <div className="viewer-copy">
+                {project.plainBody.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              <h3>Built with</h3>
+              <p className="viewer-stack">{project.stack}</p>
+            </>
+          ) : (
+            <>
+              <h3>How it works</h3>
+              <div className="viewer-copy">
+                {project.body.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              <h3>Under the hood</h3>
+              <table className="specs">
+                <tbody>
+                  {project.specs.map((sp) => (
+                    <tr key={sp.k}>
+                      <th scope="row">{sp.k}</th>
+                      <td>{sp.v}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
           <p className="viewer-links">
             {project.live && (
               <a className="primary" href={project.live} target="_blank" rel="noopener">
@@ -211,6 +270,7 @@ function Viewer({
 /* ------------------------------------------------------------------ */
 
 export function Portfolio() {
+  const { mode, setMode, theme, setTheme } = useSettings();
   const [filter, setFilter] = useState<Kind | "All">("All");
   const [hover, setHover] = useState<Project | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -272,11 +332,29 @@ export function Portfolio() {
         <a href="#" className="top-name" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0 }); }}>
           {profile.name}
         </a>
-        <nav aria-label="Site">
-          <a href="#index" onClick={(e) => { e.preventDefault(); document.getElementById("index")?.scrollIntoView(); }}>Work</a>
-          <a href="#about" onClick={(e) => { e.preventDefault(); document.getElementById("about")?.scrollIntoView(); }}>About</a>
-          <a href={`mailto:${profile.email}`}>Email</a>
-        </nav>
+        <div className="top-right">
+          <nav aria-label="Site">
+            <a href="#index" onClick={(e) => { e.preventDefault(); document.getElementById("index")?.scrollIntoView(); }}>Work</a>
+            <a href="#about" onClick={(e) => { e.preventDefault(); document.getElementById("about")?.scrollIntoView(); }}>About</a>
+            <a href={`mailto:${profile.email}`}>Email</a>
+          </nav>
+          <div className="switch" role="group" aria-label="How much detail">
+            <button type="button" aria-pressed={mode === "plain"} onClick={() => setMode("plain")}>
+              Plain
+            </button>
+            <button type="button" aria-pressed={mode === "tech"} onClick={() => setMode("tech")}>
+              Technical
+            </button>
+          </div>
+          <button
+            type="button"
+            className="theme"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? "Light" : "Dark"}
+          </button>
+        </div>
       </header>
 
       <section className="hero" aria-labelledby="hero-name">
@@ -299,8 +377,18 @@ export function Portfolio() {
             Gohel
           </h1>
           <p className="hero-lede">
-            I build AI systems that hold up in production: agents with hard guardrails, matching people can audit,
-            and models that run on the machine they&apos;re meant for. {projects.length} of them are below.
+            {mode === "plain" ? (
+              <>
+                I build AI tools that save people real time: a recruiting system that ranks candidates and shows its
+                reasoning, a trading agent that can&apos;t break its own rules, and assistants that run privately on
+                your own computer. Here are {projects.length} of them.
+              </>
+            ) : (
+              <>
+                I build AI systems that hold up in production: agents with hard guardrails, matching people can
+                audit, and models that run on the machine they&apos;re meant for. {projects.length} of them are below.
+              </>
+            )}
           </p>
           <p className="hero-cta">
             <a href="#index" onClick={(e) => { e.preventDefault(); document.getElementById("index")?.scrollIntoView(); }}>
@@ -340,11 +428,11 @@ export function Portfolio() {
                 onPointerEnter={(e) => e.pointerType === "mouse" && setHover(p)}
                 onFocus={() => setHover(null)}
                 onClick={() => open(p.id)}
-                aria-label={`${p.name}: ${p.line} Open details.`}
+                aria-label={`${p.name}: ${mode === "plain" ? p.plainLine : p.line} Open details.`}
               >
                 <span className="row-kind">{p.kind}</span>
                 <span className="row-name">{p.name}</span>
-                <span className="row-line">{p.line}</span>
+                <span className="row-line">{mode === "plain" ? p.plainLine : p.line}</span>
                 <span className="row-meta">
                   {p.live ? "Live" : p.repo ? "Code" : "Private"}
                 </span>
@@ -398,7 +486,7 @@ export function Portfolio() {
       </footer>
 
       <Preview project={openId ? null : hover} />
-      {current && <Viewer project={current} onClose={close} onStep={step} position={pos} />}
+      {current && <Viewer project={current} onClose={close} onStep={step} position={pos} mode={mode} setMode={setMode} />}
     </>
   );
 }

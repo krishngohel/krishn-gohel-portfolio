@@ -30,6 +30,10 @@ export interface Project {
   shots: Shot[];
   /** One or two plain-English sentences: what it does and who it helps. */
   plain: string;
+  /** Short plain-English line for the index. */
+  plainLine: string;
+  /** Plain-English detail paragraphs for non-technical readers. */
+  plainBody: string[];
   /** Three real numbers from the project, shown big. */
   numbers: { n: string; label: string }[];
   live?: string;
@@ -42,6 +46,11 @@ const s = (src: string, alt: string, w: number, h: number, caption?: string): Sh
 export const projects: Project[] = [
   {
     id: "necto",
+    plainLine: "Scan a business card and the contact fills itself in.",
+    plainBody: [
+      "You meet people at events and forget half of them. With Necto you scan their business card or import your LinkedIn, and it fills in their job, company and background for you.",
+      "It then draws everyone you know as a map, colored by how recently you were in touch, so you can see who you're drifting away from. It works on iPhone, Android and the web, and it's live with paying subscribers.",
+    ],
     plain: "Meet someone, scan their business card, and Necto fills in who they are, where they work, and when you last talked, then shows your whole network so nobody quietly drops off.",
     numbers: [
       { n: "6,054", label: "people in one live network" },
@@ -70,6 +79,11 @@ export const projects: Project[] = [
   },
   {
     id: "gratiture",
+    plainLine: "Ranks job candidates for recruiters and shows why each one ranked there.",
+    plainBody: [
+      "Recruiters at a staffing firm used to read every resume by hand for every job. Now job requests arrive by email and turn into clean job posts automatically, and every candidate gets a score out of 100 for every open job.",
+      "The score is fully explained: how much came from skills, experience, location and so on, with the exact resume line behind each point. Nobody is put forward until a recruiter approves them. It's in production with the firm's recruiting team.",
+    ],
     plain: "A staffing firm's recruiters get a ranked shortlist for every open job and can see exactly why each candidate ranked where they did, instead of reading every resume by hand.",
     numbers: [
       { n: "300", label: "resumes screened in one pass" },
@@ -104,6 +118,11 @@ export const projects: Project[] = [
   },
   {
     id: "lead-desk",
+    plainLine: "Gets insurance leads to the right agent fast, and tracks every call.",
+    plainBody: [
+      "When someone fills out a quote form from a Facebook or Instagram ad, the lead goes straight to an available licensed agent and a five-minute timer starts, so the call happens while the person is still interested.",
+      "If nobody picks up, it schedules a retry. If they pick up, the agent logs the quote, the follow-up, or the sale. If someone says STOP, the number is blocked, and the agency keeps a record of exactly what each person agreed to.",
+    ],
     plain: "When someone asks for a life-insurance quote, the right licensed agent gets the lead and a clock starts, so the call happens in minutes instead of whenever someone checks the inbox.",
     numbers: [
       { n: "5 min", label: "target from form to first call" },
@@ -131,6 +150,11 @@ export const projects: Project[] = [
   },
   {
     id: "ihop",
+    plainLine: "Shows restaurant managers which stores need help today, out of ~120.",
+    plainBody: [
+      "Area managers for a group of about 120 restaurants used to check every store's numbers each morning. Now one screen lists the handful that missed their sales or staffing targets, with the reasons alongside, including the weather and how the same day went last year.",
+      "A short summary is ready each morning, and managers fill in a weekly forecast that rolls up to their region. The data comes in from the restaurant systems' own reports, so nobody has to share vendor passwords.",
+    ],
     plain: "Instead of checking 120 restaurants every morning, managers open one screen that lists the few stores missing their sales or labor targets, with the numbers that explain why.",
     numbers: [
       { n: "~120", label: "restaurants in one view" },
@@ -160,6 +184,11 @@ export const projects: Project[] = [
   },
   {
     id: "paper-desk",
+    plainLine: "An AI trades a practice account, with rules it physically can't break.",
+    plainBody: [
+      "Would you trust an AI with your money? Paper Desk is how to find out safely. An AI trades a practice account all day with fake money, writing down why it made every trade and where it would get out.",
+      "A separate set of hard rules sits between the AI and the broker and blocks anything risky, like betting on prices falling or borrowing to trade, no matter what the AI wants. Every decision is logged and graded weekly, so there's an honest track record before any real money is involved.",
+    ],
     plain: "An AI trades a practice account all day with a written reason for every trade, while hard-coded rules block the bets it is never allowed to make. The record shows whether its judgment holds up before real money is involved.",
     numbers: [
       { n: "$0", label: "real money at risk" },
@@ -186,6 +215,11 @@ export const projects: Project[] = [
   },
   {
     id: "trafficlab",
+    plainLine: "Teaches traffic lights to adapt to traffic, then shows it in 3D.",
+    plainBody: [
+      "Most traffic lights run on a fixed timer, even when one direction is empty. TrafficLab is a virtual city where AI controllers learn to time the lights based on the cars actually waiting.",
+      "Each AI is tested against the methods traffic engineers already use, and every run can be replayed in 3D in a browser. On one simulated rush hour, the AI cut each driver's delay by 18% compared with a fixed timer.",
+    ],
     plain: "Teaches traffic lights to react to the cars actually waiting instead of running a fixed timer, then replays the result in 3D so you can watch the difference.",
     numbers: [
       { n: "18%", label: "less delay per driver on a test rush hour" },
@@ -214,6 +248,11 @@ export const projects: Project[] = [
   },
   {
     id: "traffic-rl",
+    plainLine: "Tells a city whether retiming a light would cut wait times.",
+    plainBody: [
+      "Cities already count cars at intersections. traffic-rl takes those counts and answers a simple question: would a different light schedule make people wait less, and by how much?",
+      "It tests the usual approaches and an AI side by side on identical traffic, 20 times over, and reports the result honestly even when the AI loses. It focuses on the unluckiest drivers, the ones stuck through several red lights, not just the average.",
+    ],
     plain: "Tells a city whether retiming a traffic light would cut waits, using the traffic counts it already collects, and says how sure it is.",
     numbers: [
       { n: "40,000\u00d7", label: "faster than real time" },
@@ -239,6 +278,11 @@ export const projects: Project[] = [
   },
   {
     id: "cleanroom",
+    plainLine: "A private ChatGPT for teams that can't put their data in the cloud.",
+    plainBody: [
+      "Hospitals, banks and law firms often can't paste documents into ChatGPT because the data would leave the building. Cleanroom gives them the same kind of assistant running on their own servers.",
+      "Staff can chat with it, organize work into projects and share prompts, while every action is recorded in a log that can't be edited. It can also improve its model from several sites' data without that data ever being pooled in one place.",
+    ],
     plain: "A ChatGPT-style assistant that a hospital, bank or law firm can run on its own servers, so sensitive documents never leave the building.",
     numbers: [
       { n: "0", label: "bytes of data sent to the cloud" },
@@ -264,6 +308,11 @@ export const projects: Project[] = [
   },
   {
     id: "library-claim",
+    plainLine: "Film your bookshelves and get a priced insurance claim.",
+    plainBody: [
+      "After a fire or flood, insurers want a list of everything you lost, with prices. With this agent you walk around the room filming on your phone while it talks to you, telling you to slow down or get closer.",
+      "When you're done, it hands back a claim packet: every book identified from its spine and priced, other items priced, and the room's size. A sweep costs two to three cents in AI fees, or nothing on Google's free tier.",
+    ],
     plain: "After a fire or flood, film your bookshelves while the agent talks you through it, and get an itemized insurance claim with every book identified and priced.",
     numbers: [
       { n: "3 min", label: "walk-through of one room" },
@@ -289,6 +338,11 @@ export const projects: Project[] = [
   },
   {
     id: "clarity",
+    plainLine: "Spots when a politician dodges the question.",
+    plainBody: [
+      "In interviews, politicians often answer a different question than the one they were asked. This model reads a question and the answer and decides whether it was a clear answer, a half-answer, or a dodge.",
+      "It learned from 2,758 real interview exchanges, and 15 versions of the model vote on each answer to make the call more reliable. It was built for a university machine-learning competition.",
+    ],
     plain: "Detects when a politician answers a question and when they dodge it, trained on real interview transcripts.",
     numbers: [
       { n: "2,758", label: "labeled question\u2013answer pairs" },
@@ -314,6 +368,11 @@ export const projects: Project[] = [
   },
   {
     id: "rt-mbas",
+    plainLine: "Reads focus and stress from a webcam, live, on any laptop.",
+    plainBody: [
+      "This watches a webcam and tells, moment by moment, whether someone looks focused, distracted or stressed, based on cues like blinking, hand speed and overall movement.",
+      "It runs entirely on an ordinary laptop with no internet connection and no special graphics card, so the video never goes anywhere.",
+    ],
     plain: "Watches a webcam and tells in real time whether a person looks focused, distracted, or stressed, without sending video anywhere.",
     numbers: [
       { n: "15", label: "body-language signals per frame" },
@@ -338,6 +397,11 @@ export const projects: Project[] = [
   },
   {
     id: "calisthenics",
+    plainLine: "Film your workout and get coached on your form.",
+    plainBody: [
+      "Bodyweight skills like planches and handstands are hard to judge on your own. Upload or record a video and the app times each hold and scores your form as the clip plays, with tips on what to fix.",
+      "It knows 29 skills and can show a ghost outline of the right position to copy. The video is analyzed on your own device and never uploaded.",
+    ],
     plain: "Film your workout and it times your holds and scores your form like a coach would, with the video never leaving your phone or laptop.",
     numbers: [
       { n: "29", label: "exercises it can judge" },
@@ -362,6 +426,11 @@ export const projects: Project[] = [
   },
   {
     id: "pressed",
+    plainLine: "Your whole career in one place, and a tailored resume for each job.",
+    plainBody: [
+      "Job hunting means rewriting your resume for every application and losing track of emails. Pressed keeps everything you've done in one place, then writes a resume matched to each job description and turns it into a polished PDF you can edit by clicking any line.",
+      "It can also scan your Gmail for interview requests, offers and deadlines and put them on a board so nothing slips. The basics are free; Pro is $15 a month.",
+    ],
     plain: "Keeps your whole career in one place, writes a resume tailored to each job you apply for, and reads your inbox so interview invites and deadlines don't slip.",
     numbers: [
       { n: "$15", label: "a month for Pro" },
@@ -387,6 +456,11 @@ export const projects: Project[] = [
   },
   {
     id: "studywork",
+    plainLine: "A distraction-free practice app for middle schoolers, no internet needed.",
+    plainBody: [
+      "Studywork gives students in grades 6 to 8 practice in math, reading, science and social studies, matched to what Texas schools teach.",
+      "It works without internet, so there are no ads or other tabs to wander into. Each child's progress is kept separately and parents get clear controls. It installs on Windows and Mac.",
+    ],
     plain: "A practice app for middle schoolers that works with no internet, so there's nothing to get distracted by, and parents can see each child's progress.",
     numbers: [
       { n: "6\u20138", label: "grades covered" },
@@ -412,6 +486,11 @@ export const projects: Project[] = [
   },
   {
     id: "futureproof",
+    plainLine: "Teaches kids how AI works, with coding right in the browser.",
+    plainBody: [
+      "Futureproof is a course that teaches K-12 students how AI works, with lessons, quizzes and hands-on coding in the browser, no installs required.",
+      "The first module is free and the full course is $5 a month. Students' projects and progress are saved to their account.",
+    ],
     plain: "Teaches K-12 students how AI works, with lessons, quizzes, and a code editor that runs in the browser.",
     numbers: [
       { n: "5", label: "modules, the first one free" },
@@ -436,6 +515,11 @@ export const projects: Project[] = [
   },
   {
     id: "scrubbed",
+    plainLine: "Med school applicants enter their story once and get essay outlines.",
+    plainBody: [
+      "Applying to medical school means writing dozens of school-specific essays. Scrubbed has applicants enter their activities, hours and experiences once.",
+      "It then builds an outline for each school's essay prompts from what the applicant actually did, instead of generic advice.",
+    ],
     plain: "Medical school applicants enter their experiences once, then get essay outlines for each school built from what they actually did.",
     numbers: [
       { n: "1", label: "record for every application" },
@@ -461,6 +545,11 @@ export const projects: Project[] = [
   },
   {
     id: "echo",
+    plainLine: "Lets your AI assistant browse the web on your own computer.",
+    plainBody: [
+      "AI assistants like Claude or ChatGPT usually can't use a real browser, or they use one in the cloud that isn't signed in to anything. Echo is a browser on your computer that your assistant can control directly.",
+      "You can watch it click and type in the same window you see. It works with seven or more AI apps and installs on Windows, Mac and Linux.",
+    ],
     plain: "Lets any AI assistant use a real web browser on your own computer, so it can search and click through sites with your logins instead of a cloud robot.",
     numbers: [
       { n: "7+", label: "AI apps it connects to" },
@@ -485,6 +574,11 @@ export const projects: Project[] = [
   },
   {
     id: "airdesk",
+    plainLine: "Control your computer with hand gestures and your voice.",
+    plainBody: [
+      "AirDesk turns a webcam into a mouse: point to move the cursor, pinch to click, pinch and hold to drag, and flick a window to snap it to the side. Speak and it types.",
+      "Everything is processed on the PC itself, so nothing you say or do is sent anywhere, and your regular mouse and keyboard keep working.",
+    ],
     plain: "Control your PC with hand gestures and your voice through a webcam and microphone, with everything processed on the PC itself.",
     numbers: [
       { n: "8+", label: "gestures: click, drag, scroll, snap, volume" },
@@ -509,6 +603,11 @@ export const projects: Project[] = [
   },
   {
     id: "gotham",
+    plainLine: "A comic-book action game that runs in your browser, no download.",
+    plainBody: [
+      "A superhero action game you play in a browser tab: glide over a rainy city at night, fight through three districts, and stop a villain's plan, with twelve hidden trophies to find.",
+      "The city, the comic-style story pages, the music and the sound effects are all generated by code rather than drawn or recorded by hand.",
+    ],
     plain: "A comic-book action game that runs in a web browser with no install, where the city, music and sound are all generated by code.",
     numbers: [
       { n: "3", label: "city districts to fight through" },
@@ -534,6 +633,11 @@ export const projects: Project[] = [
   },
   {
     id: "web-of-ink",
+    plainLine: "A web-swinging game where every swing follows real physics.",
+    plainBody: [
+      "A comic-style fan game in the browser where you swing between buildings. Aim at a building and you swing from exactly that point; aim at nothing and you fall.",
+      "It has a full story with thirteen boss fights, nineteen playable characters, and online play for up to five friends.",
+    ],
     plain: "A comic-style web-swinging game in the browser where every swing is real physics: you hang from the exact point you aimed at.",
     numbers: [
       { n: "19", label: "playable characters" },

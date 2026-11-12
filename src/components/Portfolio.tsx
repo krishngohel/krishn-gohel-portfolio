@@ -249,7 +249,12 @@ function Viewer({
           <p className="viewer-links">
             {project.live && (
               <a className="primary" href={project.live} target="_blank" rel="noopener">
-                Open the live site
+                {project.liveLabel ?? "Open the live site"}
+              </a>
+            )}
+            {project.download && (
+              <a className={project.live ? "secondary" : "primary"} href={project.download.href} target="_blank" rel="noopener">
+                {project.download.label}
               </a>
             )}
             {project.repo && (
@@ -434,7 +439,15 @@ export function Portfolio() {
                 <span className="row-name">{p.name}</span>
                 <span className="row-line">{mode === "plain" ? p.plainLine : p.line}</span>
                 <span className="row-meta">
-                  {p.live ? "Live" : p.repo ? "Code" : "Private"}
+                  {p.live
+                    ? p.liveLabel?.startsWith("Play")
+                      ? "Play"
+                      : "Live"
+                    : p.download
+                      ? "Download"
+                      : p.repo
+                        ? "Code"
+                        : "Private"}
                 </span>
                 {p.shots[0] && (
                   <img className="row-thumb" src={sm(p.shots[0].src)} alt="" width={p.shots[0].w} height={p.shots[0].h} loading="lazy" />

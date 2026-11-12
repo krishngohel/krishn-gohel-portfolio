@@ -765,6 +765,15 @@ a:hover {
   background: var(--accent);
   color: var(--on-accent);
 }
+.viewer-links a.secondary {
+  padding: 0 var(--s-5);
+  border: 1px solid var(--rule-2);
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+.viewer-links a.secondary:hover {
+  border-color: var(--accent);
+}
 .viewer-note {
   margin-top: var(--s-3);
   font-size: var(--t-xs);

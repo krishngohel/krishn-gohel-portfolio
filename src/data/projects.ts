@@ -37,6 +37,10 @@ export interface Project {
   /** Three real numbers from the project, shown big. */
   numbers: { n: string; label: string }[];
   live?: string;
+  /** Button text for the live link, e.g. "Play in your browser". Defaults to "Open the live site". */
+  liveLabel?: string;
+  /** A GitHub release with installers. */
+  download?: { href: string; label: string };
   repo?: string;
   note?: string;
 }
@@ -152,36 +156,41 @@ export const projects: Project[] = [
     id: "ihop",
     plainLine: "Shows restaurant managers which stores need help today, out of ~120.",
     plainBody: [
-      "Area managers for a group of about 120 restaurants used to check every store's numbers each morning. Now one screen lists the handful that missed their sales or staffing targets, with the reasons alongside, including the weather and how the same day went last year.",
-      "A short summary is ready each morning, and managers fill in a weekly forecast that rolls up to their region. The data comes in from the restaurant systems' own reports, so nobody has to share vendor passwords.",
+      "Area managers for a group of about 120 restaurants used to check every store's numbers each morning. Now one screen lists the restaurants missing their sales or staffing targets, ranked, with the numbers that explain why and the local weather.",
+      "It installs on a Mac in about five minutes with no terminal and no accounts. It updates itself at 5:30 every morning and refreshes live sales every 15 minutes while restaurants are open, and it writes a weekly report in plain language with an Excel workbook behind it.",
     ],
-    plain: "Instead of checking 120 restaurants every morning, managers open one screen that lists the few stores missing their sales or labor targets, with the numbers that explain why.",
+    plain: "Instead of checking 120 restaurants every morning, managers open one screen that ranks the stores missing their sales or labor targets, with the numbers that explain why.",
     numbers: [
       { n: "~120", label: "restaurants in one view" },
-      { n: "15%", label: "lowest performers flagged daily" },
-      { n: "4", label: "access levels, exec to store" },
+      { n: "15 min", label: "between live sales refreshes" },
+      { n: "5 min", label: "to install and connect" },
     ],
     name: "IHOP Operations Dashboard",
     kind: "Client",
-    line: "Sales and labor dashboard for a ~120-restaurant group that shows where to look first.",
-    stack: "React, Node.js, built-in SQLite",
+    line: "Mac app that ranks a ~120-restaurant group's sales and labor exceptions every morning.",
+    stack: "React, Node.js, built-in SQLite, macOS app",
     body: [
-      "Built to a client brief for a roughly 120-restaurant organization. It replaces a manual daily review of every restaurant with a prioritized hotspots view: the bottom 15% on sales and labor exceptions, rolled up by region, area and store, each with weather and prior-year context.",
-      "A morning summary is generated after the prior day's data lands, and area managers reconcile a weekly forecast form that rolls up to region. Data arrives from Rosnet and Merchant Centric STARS through a reports mailbox or a watched folder. It never logs in to vendor sites or stores vendor passwords.",
+      "Built to a client brief for a roughly 120-restaurant organization. It replaces a manual daily review of every restaurant with a ranked hotspots view of sales against forecast and labor against allowable hours, rolled up by region, area and store, each with weather context, plus dayparts and trends by day, week and weekday.",
+      "It ships as a Mac app that runs the dashboard locally at localhost:4000. Data is read from Rosnet with the portal sign-in, stored encrypted on the Mac and never used to write back, or from a reports mailbox; guest ratings come from Merchant Centric STARS. A full refresh runs at 5:30 am, live sales every 15 minutes, and it produces a weekly PDF report and an Excel export with the charts drawn.",
     ],
     specs: [
-      { k: "Screens", v: "Overview, hotspots, regions, restaurant, daily summary, forecast" },
-      { k: "Data", v: "Rosnet and STARS via reports mailbox or watched folder" },
-      { k: "Storage", v: "Node's built-in SQLite; no database to install" },
-      { k: "Access", v: "Executive, region, area and store sign-ins" },
+      { k: "Screens", v: "Overview, hotspots, regions, restaurant, trends, daily summary, forecast" },
+      { k: "Data", v: "Rosnet (read-only portal sign-in or reports mailbox), STARS ratings" },
+      { k: "Refresh", v: "Full update at 5:30 am, live sales every 15 minutes" },
+      { k: "Output", v: "Weekly PDF report, Excel workbook with charts" },
+      { k: "Install", v: "macOS 12+, Apple Silicon and Intel, about 85 MB" },
     ],
     shots: [
       s("/work/ihop-hotspots.jpg", "Hotspots view listing restaurants with sales and labor misses and weather context.", 1510, 850, "Hotspots: every flag shown with its supporting numbers and weather."),
       s("/work/ihop-overview.jpg", "Company overview with sales vs forecast, labor vs allowable, and guest ratings.", 1510, 850, "Overview: today live, yesterday final, period to date."),
     ],
+    live: "https://krishngohel.github.io/ihop-analytics/",
+    liveLabel: "Visit the download page",
+    download: { href: "https://github.com/krishngohel/ihop-analytics/releases/latest", label: "Download v2.1.5" },
     repo: "https://github.com/krishngohel/ihop-analytics",
     note: "Screenshots use the repo's generated demo data",
   },
+
   {
     id: "paper-desk",
     plainLine: "An AI trades a practice account, with rules it physically can't break.",
@@ -244,6 +253,8 @@ export const projects: Project[] = [
       s("/work/trafficlab-city.jpg", "TrafficLab WebGL replay of a grid of intersections with queued vehicles.", 1600, 900, "A rush-hour replay in the WebGL visualizer."),
       s("/work/trafficlab-night.jpg", "The same visualizer in night mode.", 1600, 900, "Night lighting, same trajectory file."),
     ],
+    live: "https://krishngohel.github.io/trafficlab/",
+    liveLabel: "Open the interactive demo",
     repo: "https://github.com/krishngohel/trafficlab",
   },
   {
@@ -274,6 +285,7 @@ export const projects: Project[] = [
       { k: "Tool", v: "traffic-rl-optimize: counts in, timing plan out" },
     ],
     shots: [s("/work/traffic-rl-p95.jpg", "Bar charts of p95 wait by controller across traffic scenarios with confidence intervals.", 1400, 576, "p95 wait by controller, mean of 20 paired runs with 95% CIs.")],
+    download: { href: "https://github.com/krishngohel/traffic-rl/releases/latest", label: "Release v0.7.0" },
     repo: "https://github.com/krishngohel/traffic-rl",
   },
   {
@@ -481,6 +493,8 @@ export const projects: Project[] = [
       { k: "Platforms", v: "Windows and universal macOS installers" },
     ],
     shots: [s("/work/studywork-home.jpg", "Studywork download page with a progress dashboard mockup.", 1510, 850)],
+    live: "https://krishngohel.github.io/Studywork-Website/",
+    download: { href: "https://github.com/krishngohel/Studywork-Website/releases/latest", label: "Download v3.22.0" },
     repo: "https://github.com/krishngohel/Studywork-Website",
     note: "App repo private; website repo public",
   },
@@ -570,6 +584,8 @@ export const projects: Project[] = [
       { k: "Platforms", v: "Windows x64 and ARM, macOS universal, Linux" },
     ],
     shots: [],
+    live: "https://krishngohel.github.io/local-browser/",
+    download: { href: "https://github.com/krishngohel/local-browser/releases/latest", label: "Download v1.2.2" },
     repo: "https://github.com/krishngohel/local-browser",
   },
   {
@@ -628,6 +644,8 @@ export const projects: Project[] = [
       { k: "Input", v: "Mouse and keyboard or gamepad, fully rebindable" },
     ],
     shots: [s("/work/gotham-title.jpg", "Title screen over a night city skyline.", 1510, 740)],
+    live: "https://krishngohel.github.io/gotham/",
+    liveLabel: "Play in your browser",
     repo: "https://github.com/krishngohel/gotham",
     note: "Unofficial fan game",
   },
@@ -658,6 +676,8 @@ export const projects: Project[] = [
       { k: "Physics", v: "Rope swing about the exact aimed point" },
     ],
     shots: [],
+    live: "https://krishngohel.github.io/spider-man-web-of-ink/",
+    liveLabel: "Play in your browser",
     repo: "https://github.com/krishngohel/spider-man-web-of-ink",
     note: "Unofficial fan game, never sold",
   },
